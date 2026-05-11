@@ -2,6 +2,9 @@ import streamlit as st
 import requests
 import pickle
 import pandas as pd
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 st.title("Movie Recommender System") 
 
@@ -18,7 +21,7 @@ options=st.selectbox("Select a Movie",
 
 
 def fetch_poster(movie_id):
-    api_key = "c3545b887fef5c0d0a3bc52cabdb2f0e"
+    api_key = os.getenv("TMDB_API_KEY")
     url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={api_key}&language=en-US"
     data = requests.get(url).json()
     poster_path = data.get('poster_path')
